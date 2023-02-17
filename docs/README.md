@@ -3,9 +3,9 @@ This is a simple Rust program that takes an image and calculates a vegetation in
 
 ## Example
 __Original Image:__
-[](./demo/demo_img.jpeg)
+[original image](demo_img.jpeg)
 __Green Minus Blue VI:__
-[](./demo/gminusb.jpeg)
+[green minus blue image](gminusb.jpeg)
 
 ## Usage
 
