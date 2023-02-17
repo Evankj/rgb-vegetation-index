@@ -2,7 +2,7 @@
 This is a simple Rust program that takes an image and calculates a vegetation index (see below for currently supported VIs) for each pixel, then writes that pixel data to an output file for visualisation.
 
 ## Example
-__Original Image:__
+__[Original Image](https://www.kaggle.com/datasets/marcosgabriel/corn-field-mapped-in-brazil?select=rgb-images):__ 
 ![original image](demo_img.jpeg)
 __Green Minus Blue VI:__
 ![green minus blue image](gminusb.jpeg)
