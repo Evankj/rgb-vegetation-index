@@ -36,16 +36,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let img = image::open(args.input)?;
 
-    let pb = ProgressBar::new(img.width() as u64 * img.height() as u64);
+    let count = img.width() as u64 * img.height() as u64;
+    let gradient_pb = ProgressBar::new(count);
+    let pixel_calc_pb = ProgressBar::new(count);
 
     let mut out_img = ImageBuffer::new(img.width(), img.height());
 
+    println!("Calculating Gradient Values...");
     // Find the minimum and maximum calculated values
     let (min_val, max_val) = img.pixels().fold((std::f32::INFINITY, std::f32::NEG_INFINITY), |(min, max), (_, _, pixel)| {
         let val = calc_fn(&pixel);
+        gradient_pb.inc(1);
         (min.min(val), max.max(val))
     });
+    gradient_pb.finish_with_message("Done!");
 
+    println!("Calculating Pixel Values...");
     for (x, y, pixel) in img.pixels() {
         let val = calc_fn(&pixel);
         // Interpolate between two red and green based on the calculated value
@@ -53,12 +59,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let t = (val - min_val) / (max_val - min_val);
         let colour = [lerp(255, 0, t), lerp(0, 255, t), 0, 1];
         out_img.put_pixel(x, y, Rgba(colour));
-        pb.inc(1);
+        pixel_calc_pb.inc(1);
     }
 
-    pb.finish_with_message("Done!");
+    pixel_calc_pb.finish_with_message("Done!");
 
+    println!("Writing to Output Image Path...");
     out_img.save(args.output)?;
+
+    println!("Done!");
 
     Ok(())
 }

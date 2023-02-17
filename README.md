@@ -1,6 +1,12 @@
 # RGB Vegetation Index Image Generator
 This is a simple Rust program that takes an image and calculates a vegetation index (see below for currently supported VIs) for each pixel, then writes that pixel data to an output file for visualisation.
 
+## Example
+__Original Image:__
+[](./demo/demo_img.jpeg)
+__Green Minus Blue VI:__
+[](./demo/gminusb.jpeg)
+
 ## Usage
 
 The script takes 3 parameters:
@@ -20,4 +26,5 @@ The VI `calculation` types currently supported are:
 To execute the script, simply run:
 
 `cargo run <input> <output> --calculation <calculation>`
+
 
